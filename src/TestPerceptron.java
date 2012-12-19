@@ -10,17 +10,16 @@ public class TestPerceptron {
 		
 		p.train(data, expectedOutput);
 		
-		double test = p.think(new double[]{1,1,0});		
-		System.out.println("Testing with 1,1,0... output: " + test);
+		System.out.println("\nStarting test");
 		
-		test = p.think(new double[]{1,1,1});		
-		System.out.println("Testing with 1,1,1... output: " + test);
+		double[] output = p.test(data);
 		
-		test = p.think(new double[]{1,0,0});		
-		System.out.println("Testing with 1,0,0... output: " + test);
-		
-		test = p.think(new double[]{1,0,1});		
-		System.out.println("Testing with 1,0,1... output: " + test);
+		for (int i = 0; i < data.length; i++)
+			System.out.println("Output for {"+data[i][0]+", "+data[i][1]+", "+data[i][2]+"}: "
+												+output[i]+"; Expected: "+expectedOutput[i]);
+
+        for (double n : p.getWeights())
+        	System.out.print(n+", ");
 	}
 
 }
