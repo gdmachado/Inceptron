@@ -149,12 +149,30 @@ public class Perceptron
 	}
 	
 	//
+	// public double[] test(double[][] input)
+	// tests the Perceptron network against a set of data
+	// returns an array containing outputs for all sets of data
+	public double[] test(double[][] input)
+	{
+		double[] output = new double[input.length];
+		for(int i = 0; i < input.length; i++)
+			output[i] = think(input[i]);
+		return output;
+	}
+	
+	
+	//
 	// print network
 	// method simply prints the whole network in a nice format
 	//
 	public void printNetwork()
 	{
 		
+	}
+	
+	public double[] getWeights()
+	{
+		return Weights;
 	}
 	
 	
