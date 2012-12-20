@@ -2,7 +2,8 @@ package gdmachado.Inceptron;
 
 import java.util.ArrayList;
 
-public class MultilayerPerceptron {
+public class MultilayerPerceptron
+{
 	//
 	// Constructor
 	//
@@ -89,19 +90,10 @@ public class MultilayerPerceptron {
 											    upper));
 	}
 	
-	//
-	// TRAIN
-	//
-	/*
-	public void train(double[][] data, double[][] expectedOutput)
+	public void think(double[] data)
 	{
-		double error = 0;
-		for(int i = 0; i < data.length; i++)
-		{
-			
-		}
+		
 	}
-	*/
 	
 	
 	//
