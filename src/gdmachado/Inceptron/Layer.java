@@ -2,7 +2,8 @@ package gdmachado.Inceptron;
 
 import java.util.ArrayList;
 
-public class Layer {
+public class Layer
+{
 	//
 	// Default constructor
 	// Creates a new perceptron layer with 0 perceptrons
@@ -71,6 +72,14 @@ public class Layer {
 		for(int i = 0; i < neurons.size(); i++)
 			weights[i] = neurons.get(i).getWeights();
 		return weights;
+	}
+	
+	public double[] getBias()
+	{
+		double[] bias = new double[neurons.size()];
+		for(int i = 0; i < neurons.size(); i++)
+			bias[i] = neurons.get(i).Bias;
+		return bias;
 	}
 	
 	//
