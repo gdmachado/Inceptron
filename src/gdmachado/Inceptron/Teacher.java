@@ -3,12 +3,13 @@ package gdmachado.Inceptron;
 public class Teacher {
 	public static int train(double[][] data, double[] expectedOutput, double maxError, Neuron neuron, boolean verbose)
 	{
-		double error;
+		double errorRMS;
+		double delta;
 		int iterations = 0;
 		do
 		{
 			if (verbose) System.out.println("\n==============\nIteration " + iterations+"\n==============");
-			error = 0;
+			errorRMS = 0;
 			for (int i = 0; i < data.length; i++)
 			{
 				double result = neuron.think(data[i]);
@@ -19,22 +20,26 @@ public class Teacher {
 					System.out.print(neuron.Bias + "}, output: "+result+", ");
 				}
 				
-				error += Math.pow(expectedOutput[i] - result, 2);
-				if (verbose) System.out.println("Error = "+error);
-				if (error != 0)
+				delta = MathUtils.getDelta(result, expectedOutput[i], neuron.LAMBDA);
+				
+				errorRMS += Math.pow(expectedOutput[i] - result, 2);
+				
+				if (verbose) System.out.println("Error = "+ (expectedOutput[i] - result));
+				if (expectedOutput[i] - result != 0)
 				{
 					if (verbose) System.out.println("Updating weights...");
-					neuron.updateWeights(expectedOutput[i] - result, data[i]);
+					neuron.updateWeights(delta, data[i]);
 				}
 			}
-			error = Math.sqrt(error / data.length);
-			if (verbose) System.out.println("Root mean squared error: "+ error);
+			errorRMS = Math.sqrt(errorRMS / data.length);
+			if (verbose) System.out.println("Root mean squared error (across entire dataset): "+ errorRMS);
 			iterations++;
 		}
-		while(error > maxError); // while error is big enough
+		while(errorRMS > maxError); // while error is big enough
 		if (verbose) System.out.println("\nFinished training!");
 		return iterations;
 	}
+	
 	/*
 	public static train(double[][] data, double[] expectedOutput, double maxError, Layer n)
 	{
@@ -46,4 +51,19 @@ public class Teacher {
 		
 	}
 	*/
+	
+	//
+	// public double[] test(double[][] input)
+	// tests the Perceptron network against a set of data
+	// returns an array containing outputs for all sets of data
+	public static double[] test(double[][] input, Neuron neuron)
+	{
+		double[] output = new double[input.length];
+		for(int i = 0; i < input.length; i++)
+			output[i] = neuron.think(input[i]);
+		return output;
+	}
+	
+	//public static double getDelta()
 }
+

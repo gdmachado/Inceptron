@@ -9,6 +9,7 @@ import java.util.Arrays;
 
 public class Neuron
 {
+	double LAMBDA = 3;
 	//
 	// Default constructor
 	// Creates a new perceptron without inputs and all weights equal to zero and verbose = false
@@ -78,6 +79,7 @@ public class Neuron
 	public double think(double[] data)
 	{
 		return activate(MathUtils.dotProduct(data, this.Weights) - Bias);
+		//return MathUtils.dotProduct(data, this.Weights) - Bias;
 	}
 	
 	//
@@ -89,30 +91,18 @@ public class Neuron
 	//
 	private double activate(double output)
 	{
-		return MathUtils.sigmoid(output, 5);
+		return MathUtils.sigmoid(output, LAMBDA);
 	}
 	
 	//
 	// update weights
 	// updates weights according to error and input data
 	//
-	protected void updateWeights(double error, double[] data)
+	protected void updateWeights(double delta, double[] data)
 	{
 		for(int i = 0; i < data.length; i++)
-			Weights[i] += LearningRate * error * data[i];
-		if (Bias != 0) Bias -= LearningRate * error;
-	}
-	
-	//
-	// public double[] test(double[][] input)
-	// tests the Perceptron network against a set of data
-	// returns an array containing outputs for all sets of data
-	public double[] test(double[][] input)
-	{
-		double[] output = new double[input.length];
-		for(int i = 0; i < input.length; i++)
-			output[i] = think(input[i]);
-		return output;
+			Weights[i] += LearningRate * delta * data[i];
+		if (Bias != 0) Bias -= LearningRate * delta;
 	}
 	
 	
@@ -128,6 +118,11 @@ public class Neuron
 	public double[] getWeights()
 	{
 		return Weights;
+	}
+	
+	public double getLambda()
+	{
+		return LAMBDA;
 	}
 	
 	

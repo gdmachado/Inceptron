@@ -3,20 +3,20 @@ import gdmachado.Inceptron.*;
 public class TestPerceptron {
 
 	public static void main(String[] args) {
-		double[][] data = { {0,0}, {0,1}, {1,0}, {1,1} };
+		double[][] data = { {0,0,1}, {0,1,0}, {1,0,0}, {1,1,1} };
 		double[] expectedOutput = {1,0,0,0};
 		
-		Neuron p = new Neuron(2, 0.5, 0.3, 0.05, -1, 1);
+		Neuron p = new Neuron(3, 0.5, 0.3, 0.05, -1, 1);
 		
 		System.out.println("Beginning training...");
 		
-		int it = Teacher.train(data, expectedOutput, 0.001d, p, true);
+		int it = Teacher.train(data, expectedOutput, 0.1d, p, false);
 		
 		System.out.println("Finished training in "+it+" iterations.");
 		
 		System.out.println("\nStarting test");
 		
-		double[] output = p.test(data);
+		double[] output = Teacher.test(data, p);
 		
 		for (int i = 0; i < data.length; i++)
 		{
@@ -27,6 +27,7 @@ public class TestPerceptron {
 			System.out.println(", Expected: "+expectedOutput[i]);
 		}
 		
+		System.out.print("Weights: ");
         for (double n : p.getWeights())
         	System.out.print(n+", ");
 	}
