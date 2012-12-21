@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 public class Layer
 {
+	double LAMBDA;
 	//
 	// Default constructor
 	// Creates a new perceptron layer with 0 perceptrons
@@ -28,6 +29,7 @@ public class Layer
 		
 		for (int i = 0; i < outputs; i++)
 			neurons.add(new Neuron(input, bias, learningRate, threshold, value));
+		LAMBDA = neurons.get(0).LAMBDA;
 	}
 	
 	//
@@ -46,6 +48,7 @@ public class Layer
 		
 		for (int i = 0; i < outputs; i++)
 			neurons.add(new Neuron(input, bias, learningRate, threshold, lower, upper));
+		LAMBDA = neurons.get(0).LAMBDA;
 	}
 	
 	//
@@ -60,6 +63,18 @@ public class Layer
 			result[i] = this.neurons.get(i).think(data);
 		
 		return result;
+	}
+	
+	//
+	// updateWeights
+	// Updates all weights across the layer according to the provided delta and input data
+	//
+	protected void updateWeights(double[] delta, double[] data)
+	{
+		for(int i = 0; i < neurons.size(); i++)
+		{
+			neurons.get(i).updateWeights(delta[i], data);
+		}
 	}
 	
 	//
