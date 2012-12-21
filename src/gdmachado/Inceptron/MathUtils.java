@@ -6,6 +6,11 @@ public class MathUtils {
 		return dsigmoid(output, lambda) * (expected - output);
 	}
 	
+	public static double getHiddenDelta(double output, double[] weights, double[] delta, double lambda)
+	{
+		return dsigmoid(output, lambda) * dotProduct(weights, delta);
+	}
+
 	public static Double dotProduct(final double[] a, final double[] b)
 	{		
 		double result = 0;
@@ -19,27 +24,36 @@ public class MathUtils {
 		}
 		return result;
 	}
-	
+
 	public static double step(double x, double threshold)
 	{
 		return x > threshold ? 1 : 0;
 	}
-	
+
 	public static double sigmoid(double x, double lambda)
 	{
 		return 1 / (1 + Math.pow(Math.E, (-1) * lambda * x));
 	}
-	
+
 	public static double dsigmoid(double x, double lambda)
 	{
 		return lambda * (Math.pow(Math.E, (-1) * lambda * x) / (Math.pow(Math.pow(Math.E, (-1) * lambda * x), 2)));
 	}
-	
+
 	public static double tanh(double x, double lambda)
 	{
 		return Math.tanh(lambda * x);
 	}
 	
+	public static double mean(double[] values)
+	{
+		double sum = 0;
+		for(int i = 0; i < values.length; i++)
+			sum += values[i];
+		sum = sum / values.length;
+		return sum;
+	}
+
 	public static double rootMeanSquare(double[] values)
 	{
 		double sum = 0;
@@ -47,9 +61,9 @@ public class MathUtils {
 			sum += Math.pow(n, 2);
 		sum /= values.length;
 		return sum;
-		
+
 	}
-	
+
 	public static double rootMeanSquareError(double[] output, double[] expected)
 	{
 		double sum = 0;

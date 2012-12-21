@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Layer
 {
-	double LAMBDA;
+	public double LAMBDA;
 	//
 	// Default constructor
 	// Creates a new perceptron layer with 0 perceptrons
@@ -12,45 +12,44 @@ public class Layer
 	public Layer()
 	{
 		this.neurons = new ArrayList<Neuron>();
+		this.LAMBDA = 1;
 	}
-	
+
 	//
 	// Constructor
 	// Creates a new perceptron layer and initializes all weights as specified value
 	//
 	public Layer(int input, 
-						   int outputs, 
-						   double bias, 
-						   double learningRate, 
-						   double threshold, 
-						   double value)
+			int outputs, 
+			double bias, 
+			double learningRate, 
+			double value)
 	{
 		this.neurons = new ArrayList<Neuron>();
-		
+
 		for (int i = 0; i < outputs; i++)
-			neurons.add(new Neuron(input, bias, learningRate, threshold, value));
+			neurons.add(new Neuron(input, bias, learningRate, value));
 		LAMBDA = neurons.get(0).LAMBDA;
 	}
-	
+
 	//
 	// Constructor
 	// Creates a new perceptron layer and initializes all weights as specified value
 	//
 	public Layer(int input, 
-						   int outputs, 
-						   double bias, 
-						   double learningRate, 
-						   double threshold, 
-						   double lower,
-						   double upper)
+			int outputs, 
+			double bias, 
+			double learningRate,
+			double lower,
+			double upper)
 	{
 		this.neurons = new ArrayList<Neuron>();
-		
+
 		for (int i = 0; i < outputs; i++)
-			neurons.add(new Neuron(input, bias, learningRate, threshold, lower, upper));
+			neurons.add(new Neuron(input, bias, learningRate, lower, upper));
 		LAMBDA = neurons.get(0).LAMBDA;
 	}
-	
+
 	//
 	// Think
 	// Gets output from each one of the neurons within the layer, return an array of results
@@ -58,13 +57,13 @@ public class Layer
 	public double[] think(double[] data)
 	{
 		double[] result = new double[this.neurons.size()];
-		
+
 		for (int i = 0; i < this.neurons.size(); i++)
 			result[i] = this.neurons.get(i).think(data);
-		
+
 		return result;
 	}
-	
+
 	//
 	// updateWeights
 	// Updates all weights across the layer according to the provided delta and input data
@@ -76,7 +75,7 @@ public class Layer
 			neurons.get(i).updateWeights(delta[i], data);
 		}
 	}
-	
+
 	//
 	// double[][] getWeights
 	// returns a new two-dimensional array containing the weights from all perceptrons within the layer
@@ -88,7 +87,7 @@ public class Layer
 			weights[i] = neurons.get(i).getWeights();
 		return weights;
 	}
-	
+
 	public double[] getBias()
 	{
 		double[] bias = new double[neurons.size()];
@@ -96,7 +95,7 @@ public class Layer
 			bias[i] = neurons.get(i).Bias;
 		return bias;
 	}
-	
+
 	//
 	// Attributes
 	//

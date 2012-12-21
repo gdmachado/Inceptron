@@ -9,7 +9,17 @@ import java.util.Arrays;
 
 public class Neuron
 {
-	double LAMBDA = 3;
+	//
+	// Attributes
+	//
+	protected double[] Weights;
+	int Inputs;
+	double Bias;
+	double LearningRate;
+	public double LAMBDA = 3;
+	
+
+
 	//
 	// Default constructor
 	// Creates a new perceptron without inputs and all weights equal to zero and verbose = false
@@ -19,41 +29,38 @@ public class Neuron
 		this.Inputs = 0;
 		this.Bias = 0;
 		this.LearningRate = 0;
-		this.Threshold = 0;
 		this.Weights = new double[1];
-		
+
 		this.init(0);
 	}
 	//
 	// Constructor
 	// Creates a new Perceptron object and initializes all weights as specified value
 	//
-	public Neuron(int input, double bias, double learningRate, double threshold, double value)
+	public Neuron(int input, double bias, double learningRate, double value)
 	{
 		this.Inputs = input;
 		this.Bias = bias;
 		this.LearningRate = learningRate;
-		this.Threshold = threshold;
 		this.Weights = new double[this.Inputs];
-				
+
 		this.init(value); // initialize weights as specified value
 	}
-	
+
 	//
 	// Constructor
 	// Creates a new Perceptron object and initializes all weights as random values between lower and upper
 	//
-	public Neuron(int input, double bias, double learningRate, double threshold, double lower, double upper)
+	public Neuron(int input, double bias, double learningRate, double lower, double upper)
 	{
 		this.Inputs = input;
 		this.Bias = bias;
 		this.LearningRate = learningRate;
-		this.Threshold = threshold;
 		this.Weights = new double[this.Inputs];
-		
+
 		this.init(lower, upper); // initialize weights as random numbers between lower and upper
 	}
-	
+
 	//
 	// Method init(double) class
 	// Initialize all weights according to the value passed	
@@ -62,7 +69,7 @@ public class Neuron
 	{
 		Arrays.fill(this.Weights, value);
 	}
-	
+
 	//
 	// Method init(double, double) class
 	// Initialize all weights being a random number between two values passed
@@ -70,9 +77,9 @@ public class Neuron
 	private void init(double lower, double upper)
 	{
 		for (int i = 0; i < this.Weights.length; i++)
-				Weights[i] = lower + Math.random() * ((upper - lower) + 1);
+			Weights[i] = lower + Math.random() * ((upper - lower) + 1);
 	}
-	
+
 	//
 	// simply calculates output given data
 	//	
@@ -81,7 +88,7 @@ public class Neuron
 		return activate(MathUtils.dotProduct(data, this.Weights) - Bias);
 		//return MathUtils.dotProduct(data, this.Weights) - Bias;
 	}
-	
+
 	//
 	// private double[] compare
 	// activation function!!!!!!
@@ -93,7 +100,7 @@ public class Neuron
 	{
 		return MathUtils.sigmoid(output, LAMBDA);
 	}
-	
+
 	//
 	// update weights
 	// updates weights according to error and input data
@@ -104,34 +111,20 @@ public class Neuron
 			Weights[i] += LearningRate * delta * data[i];
 		if (Bias != 0) Bias -= LearningRate * delta;
 	}
-	
-	
+
+
 	//
 	// print network
 	// method simply prints the whole network in a nice format
 	//
 	public void printNetwork()
 	{
-		
+
 	}
-	
+
 	public double[] getWeights()
 	{
 		return Weights;
 	}
-	
-	public double getLambda()
-	{
-		return LAMBDA;
-	}
-	
-	
-	//
-	// Attributes
-	//
-	protected double[] Weights;
-	int Inputs;
-	double Bias;
-	double LearningRate;
-	double Threshold;
+
 }
