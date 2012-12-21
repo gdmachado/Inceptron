@@ -9,7 +9,8 @@ public class TestPerceptron {
 		double[] expectedOutput = {0,1,0,1};
 		
 		//==================================================================
-		
+		// Begin neuron testing
+		//==================================================================
 		Neuron p = new Neuron(3, 0.5, 0.5, 0.05, -1, 1);
 		
 		System.out.println("Beginning training...");
@@ -35,6 +36,10 @@ public class TestPerceptron {
         for (double n : p.getWeights())
         	System.out.print(n+", ");
         
+        //==================================================================
+        // End neuron testing
+        //==================================================================
+        // Begin layer testing
         //==================================================================
         
         System.out.println("\nPress any key to begin training layer...");
