@@ -1,3 +1,5 @@
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.io.IOException;
 
 import gdmachado.Inceptron.*;
@@ -94,19 +96,27 @@ public class TestPerceptron {
 		System.out.println("Press any key to start the genetic algorithm optimization...");		
 		System.in.read();
 		
-		MultilayerPerceptron mlp = new MultilayerPerceptron(new int[]{4,4,3}, 0.5, 0.5, -1, 1);
+		MultilayerPerceptron mlp = new MultilayerPerceptron(new int[]{4,3}, 0.5, 0.5, -1, 1);
 		
 		Population pop = new Population(20, true, mlp);
 		
+		FileWriter fw = new FileWriter("glass_fold2.result");
+		BufferedWriter bw = new BufferedWriter(fw);
+		
 		int generations = 0;
-		while(pop.getFittest(mlp).getFitness(mlp) < Fitness.getMaxFitness()) {
+		while(pop.getFittest(mlp).getFitness(mlp) < Fitness.getMaxFitness() && generations < 1000) {
+			bw.write(generations+" "+String.valueOf(pop.getFittest(mlp).getFitness(mlp))+"\n");
 			generations++;
 			System.out.println("Generation "+generations+": Best fitness so far: "+ pop.getFittest(mlp).getFitness(mlp));
+			
 			pop = Evolution.evolvePopulation(pop, mlp);
 		}
 		System.out.println("Generation found.");
 		System.out.println("Fittest: " + pop.getFittest(mlp).getFitness(mlp));
 		System.out.println("His error is: " + 1/pop.getFittest(mlp).getFitness(mlp));
+		
+		bw.close();
+		
 	}
 
 }

@@ -6,8 +6,8 @@ public class Evolution {
 
     /* GA parameters */
     private static final double uniformRate = 0.5;
-    private static final double mutationRate = 0.05;
-    private static final int tournamentSize = 5;
+    private static final double mutationRate = 0.1;
+    private static final int tournamentSize = 3;
     private static final boolean elitism = true;
     
 
@@ -19,7 +19,7 @@ public class Evolution {
     // Evolve a population
     public static Population evolvePopulation(Population pop, MultilayerPerceptron m) {
         Population newPopulation = new Population(pop.size(), false, m);
-        System.out.println("Evolving population... Current fittest: "+ pop.getFittest(m).getFitness(m));
+        //System.out.println("Evolving population... Current fittest: "+ pop.getFittest(m).getFitness(m));
         // Keep our best individual
         if (elitism) {
             newPopulation.saveIndividual(0, pop.getFittest(m));

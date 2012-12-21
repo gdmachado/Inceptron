@@ -25,8 +25,8 @@ public class Fitness {
         MLP.setIndividual(individual.genes);
         
         //String file = "datasets/xor.txt";
-        //String file = "datasets/glass_fold1.txt";
-        String file = "datasets/iris_fold1.txt";
+        String file = "datasets/glass_fold1.txt";
+        //String file = "datasets/iris_fold3.txt";
         
         double[] rmsError = null;
 		
@@ -66,14 +66,14 @@ public class Fitness {
         double meanSquaredError = MathUtils.mean(rmsError);       
         
         fitness = 1 / meanSquaredError;
-        System.out.println("Current error: "+ meanSquaredError+", fitness: "+ fitness);
+        //System.out.println("Current error: "+ meanSquaredError+", fitness: "+ fitness);
         
         return fitness;
     }
     
     // Get optimum fitness
     public static int getMaxFitness() {
-        int maxFitness = 20;
+        int maxFitness = 30;
         return maxFitness;
     }
 }
